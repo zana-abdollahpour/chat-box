@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 
 import ConvexClientProvider from "@/providers/ConvexClientProvider";
+import SidebarWrapper from "@/components/shared/sidebar/sidebar-wrapper";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -29,7 +30,9 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} h-full overflow-hidden antialiased`}
       >
-        <ConvexClientProvider>{children}</ConvexClientProvider>
+        <ConvexClientProvider>
+          <SidebarWrapper>{children}</SidebarWrapper>
+        </ConvexClientProvider>
       </body>
     </html>
   );
