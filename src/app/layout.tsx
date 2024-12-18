@@ -4,6 +4,7 @@ import "./globals.css";
 
 import ConvexClientProvider from "@/providers/ConvexClientProvider";
 import SidebarWrapper from "@/components/shared/sidebar/sidebar-wrapper";
+import { TooltipProvider } from "@/components/ui/tooltip";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -31,7 +32,9 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} h-full overflow-hidden antialiased`}
       >
         <ConvexClientProvider>
-          <SidebarWrapper>{children}</SidebarWrapper>
+          <TooltipProvider>
+            <SidebarWrapper>{children}</SidebarWrapper>
+          </TooltipProvider>
         </ConvexClientProvider>
       </body>
     </html>
