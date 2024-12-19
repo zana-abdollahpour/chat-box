@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { UserButton } from "@clerk/nextjs";
 
+import { useConversation } from "@/hooks/useConversation";
 import { useNavigation } from "@/hooks/useNavigation";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -14,6 +15,9 @@ import {
 
 export default function MobileNav() {
   const paths = useNavigation();
+  const { isActive } = useConversation();
+
+  if (isActive) return null;
 
   return (
     <Card className="fixed bottom-4 flex h-16 w-[calc(100dvw_-_32px)] items-center p-2 md:hidden">
