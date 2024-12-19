@@ -1,5 +1,12 @@
+import ItemList from "@/components/shared/item-list";
+
 export default function ConversationsLayout({
   children,
 }: React.PropsWithChildren) {
-  return <div>{children}</div>;
+  return (
+    <>
+      <ItemList title="Conversations">Conversations Page</ItemList>
+      {children}
+    </>
+  );
 }
