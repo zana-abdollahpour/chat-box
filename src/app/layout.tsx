@@ -2,9 +2,10 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 
-import ConvexClientProvider from "@/providers/convex-client-provider";
 import SidebarWrapper from "@/components/shared/sidebar/sidebar-wrapper";
+import ConvexClientProvider from "@/providers/convex-client-provider";
 import { TooltipProvider } from "@/components/ui/tooltip";
+import { ThemeProvider } from "@/providers/theme-provider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -27,15 +28,22 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="h-full overflow-hidden">
+    <html lang="en" className="h-full overflow-hidden" suppressHydrationWarning>
       <body
         className={`${geistSans.variable} ${geistMono.variable} h-full overflow-hidden antialiased`}
       >
-        <ConvexClientProvider>
-          <TooltipProvider>
-            <SidebarWrapper>{children}</SidebarWrapper>
-          </TooltipProvider>
-        </ConvexClientProvider>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <ConvexClientProvider>
+            <TooltipProvider>
+              <SidebarWrapper>{children}</SidebarWrapper>
+            </TooltipProvider>
+          </ConvexClientProvider>
+        </ThemeProvider>
       </body>
     </html>
   );

@@ -4,9 +4,10 @@ import Link from "next/link";
 import { UserButton } from "@clerk/nextjs";
 
 import { useConversation } from "@/hooks/useConversation";
+import { ThemeToggle } from "@/components/ui/theme-toggle";
 import { useNavigation } from "@/hooks/useNavigation";
-import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
 import {
   Tooltip,
   TooltipContent,
@@ -42,6 +43,9 @@ export default function MobileNav() {
               </Link>
             </li>
           ))}
+          <li>
+            <ThemeToggle />
+          </li>
           <li>
             <UserButton />
           </li>

@@ -3,9 +3,10 @@
 import Link from "next/link";
 import { UserButton } from "@clerk/nextjs";
 
+import { ThemeToggle } from "@/components/ui/theme-toggle";
 import { useNavigation } from "@/hooks/useNavigation";
-import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
 import {
   Tooltip,
   TooltipContent,
@@ -41,6 +42,7 @@ export default function DesktopNav() {
         </ul>
       </nav>
       <div className="flex flex-col items-center gap-4">
+        <ThemeToggle />
         <UserButton />
       </div>
     </Card>
