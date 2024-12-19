@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 
-import ConvexClientProvider from "@/providers/ConvexClientProvider";
+import ConvexClientProvider from "@/providers/convex-client-provider";
 import SidebarWrapper from "@/components/shared/sidebar/sidebar-wrapper";
 import { TooltipProvider } from "@/components/ui/tooltip";
 
