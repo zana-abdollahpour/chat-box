@@ -63,7 +63,6 @@ export default function Request({
         </div>
       </div>
 
-      {/* TODO: accept invitation */}
       <div className="flex items-center gap-2">
         <Button
           size="icon"
