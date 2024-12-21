@@ -6,6 +6,7 @@ import { UserButton } from "@clerk/nextjs";
 import { useConversation } from "@/hooks/useConversation";
 import { ThemeToggle } from "@/components/ui/theme-toggle";
 import { useNavigation } from "@/hooks/useNavigation";
+import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import {
@@ -35,6 +36,9 @@ export default function MobileNav() {
                     >
                       <path.icon />
                     </Button>
+                    {path.requestsCount && (
+                      <Badge className="absolute bottom-7 left-6 px-2" />
+                    )}
                   </TooltipTrigger>
                   <TooltipContent>
                     <p>{path.name}</p>
