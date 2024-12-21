@@ -26,10 +26,22 @@ export default function Request({
   const { mutate: denyRequest, pending: denyPending } = useMutaionState(
     api.request.deny,
   );
+  const { mutate: acceptRequest, pending: acceptPending } = useMutaionState(
+    api.request.accept,
+  );
 
   const handleDenial = () =>
     denyRequest({ id })
       .then(() => toast.info("Friend request denied"))
+      .catch((err) => {
+        toast.error(
+          err instanceof ConvexError ? err.data : "Unexpected error occured",
+        );
+      });
+
+  const handleAcception = () =>
+    acceptRequest({ id })
+      .then(() => toast.success("Friend request accepted"))
       .catch((err) => {
         toast.error(
           err instanceof ConvexError ? err.data : "Unexpected error occured",
@@ -53,12 +65,16 @@ export default function Request({
 
       {/* TODO: accept invitation */}
       <div className="flex items-center gap-2">
-        <Button size="icon" disabled={denyPending} onClick={() => {}}>
+        <Button
+          size="icon"
+          disabled={denyPending || acceptPending}
+          onClick={handleAcception}
+        >
           <Check className="h-4 w-4" />
         </Button>
         <Button
           size="icon"
-          disabled={denyPending}
+          disabled={denyPending || acceptPending}
           onClick={handleDenial}
           variant="destructive"
         >
