@@ -1,0 +1,21 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { useMutation } from "convex/react";
+import { useState } from "react";
+
+export const useMutaionState = (mutationToRun: any) => {
+  const [pending, setPending] = useState(false);
+  const mutationFn = useMutation(mutationToRun);
+
+  const mutate = (payload: any) => {
+    setPending(true);
+
+    return mutationFn(payload)
+      .then((res) => res)
+      .catch((err) => {
+        throw err;
+      })
+      .finally(() => setPending(false));
+  };
+
+  return { pending, mutate };
+};
