@@ -2,6 +2,7 @@
 
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { toast } from "sonner";
 import { useForm } from "react-hook-form";
 import { UserPlus } from "lucide-react";
 
@@ -30,6 +31,10 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 
+import { api } from "#/convex/_generated/api";
+import { useMutaionState } from "@/hooks/useMutationState";
+import { ConvexError } from "convex/values";
+
 const addFriendFormSchema = z.object({
   email: z
     .string()
@@ -38,6 +43,8 @@ const addFriendFormSchema = z.object({
 });
 
 export default function AddFriendDialog() {
+  const { mutate: createRequest } = useMutaionState(api.request.create);
+
   const form = useForm<z.infer<typeof addFriendFormSchema>>({
     resolver: zodResolver(addFriendFormSchema),
     defaultValues: {
@@ -45,7 +52,20 @@ export default function AddFriendDialog() {
     },
   });
 
-  const handleSubmition = () => {};
+  const handleSubmition = async (
+    values: z.infer<typeof addFriendFormSchema>,
+  ) => {
+    await createRequest({ email: values.email })
+      .then(() => {
+        form.reset();
+        toast.success("friend request sent");
+      })
+      .catch((err) => {
+        toast.error(
+          err instanceof ConvexError ? err.data : "Unexpected error occured",
+        );
+      });
+  };
 
   return (
     <Dialog>

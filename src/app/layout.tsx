@@ -4,8 +4,9 @@ import "./globals.css";
 
 import SidebarWrapper from "@/components/shared/sidebar/sidebar-wrapper";
 import ConvexClientProvider from "@/providers/convex-client-provider";
-import { TooltipProvider } from "@/components/ui/tooltip";
 import { ThemeProvider } from "@/providers/theme-provider";
+import { TooltipProvider } from "@/components/ui/tooltip";
+import { Toaster } from "sonner";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -42,6 +43,7 @@ export default function RootLayout({
             <TooltipProvider>
               <SidebarWrapper>{children}</SidebarWrapper>
             </TooltipProvider>
+            <Toaster richColors />
           </ConvexClientProvider>
         </ThemeProvider>
       </body>
