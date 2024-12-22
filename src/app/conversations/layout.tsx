@@ -22,13 +22,15 @@ export default function ConversationsLayout({
               No conversations found
             </p>
           ) : (
-            conversations.map(({ conversation, otherMember }) =>
+            conversations.map(({ conversation, otherMember, lastMessage }) =>
               conversation.isGroup ? null : (
                 <DMConversationItem
                   key={conversation._id}
                   id={conversation._id}
                   username={otherMember?.username || ""}
                   imageUrl={otherMember?.imageUrl || ""}
+                  lastMessageSender={lastMessage?.sender}
+                  lastMessageContent={lastMessage?.content}
                 />
               ),
             )
