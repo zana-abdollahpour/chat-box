@@ -1,15 +1,28 @@
 import Link from "next/link";
-import { CircleArrowLeft } from "lucide-react";
+import { CircleArrowLeft, Settings } from "lucide-react";
 
+import { cn } from "@/lib/utils";
 import { Card } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 interface HeaderProps {
   imageUrl?: string;
   name: string;
+  options?: {
+    label: string;
+    destructive: boolean;
+    onClick: () => void;
+  }[];
 }
 
-export default function Header({ name, imageUrl }: HeaderProps) {
+export default function Header({ name, imageUrl, options }: HeaderProps) {
   return (
     <Card className="flex w-full items-center justify-between rounded-lg p-2">
       <div className="flex items-center gap-2">
@@ -22,6 +35,30 @@ export default function Header({ name, imageUrl }: HeaderProps) {
         </Avatar>
         <h2 className="font-semibold">{name}</h2>
       </div>
+      {options && (
+        <div className="flex gap-2">
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button size="icon" variant="secondary">
+                <Settings />
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent>
+              {options.map((opt, i) => (
+                <DropdownMenuItem
+                  key={i}
+                  onClick={opt.onClick}
+                  className={cn("font-semibold", {
+                    "text-destructive": opt.destructive,
+                  })}
+                >
+                  {opt.label}
+                </DropdownMenuItem>
+              ))}
+            </DropdownMenuContent>
+          </DropdownMenu>
+        </div>
+      )}
     </Card>
   );
 }
