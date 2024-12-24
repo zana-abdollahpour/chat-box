@@ -14,6 +14,7 @@ import ChatInput from "./_components/chat-input";
 
 import RemoveFriendDialog from "./_components/remove-friend-dialog";
 import DeleteGroupDialog from "./_components/delete-group-dialog";
+import LeaveGroupDialog from "./_components/leave-group-dialog";
 
 interface ConversationPageProps {
   params: {
@@ -46,6 +47,11 @@ export default function ConversationPage({
         conversationId={conversationId}
         open={removeFriendDialogOpen}
         setOpen={setRemoveFriendDialogOpen}
+      />
+      <LeaveGroupDialog
+        conversationId={conversationId}
+        open={leaveGroupDialogOpen}
+        setOpen={setLeaveGroupDialogOpen}
       />
       <DeleteGroupDialog
         conversationId={conversationId}

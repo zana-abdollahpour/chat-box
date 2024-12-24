@@ -183,3 +183,47 @@ export const deleteGroup = mutation({
     );
   },
 });
+
+export const leaveGroup = mutation({
+  args: {
+    conversationId: v.id("conversations"),
+  },
+  handler: async (ctx, args) => {
+    const identity = await ctx.auth.getUserIdentity();
+
+    if (!identity) {
+      throw new ConvexError("Unauthorized");
+    }
+
+    const curentUser = await getUserByClerkId({
+      ctx,
+      clerkId: identity.subject,
+    });
+
+    if (!curentUser) {
+      throw new ConvexError("User not found");
+    }
+
+    const conversation = await ctx.db.get(args.conversationId);
+
+    if (!conversation) {
+      throw new ConvexError("Conversation not found");
+    }
+
+    const membership = await ctx.db
+      .query("conversationMembers")
+      .withIndex("by_memberId_conversationId", (q) =>
+        q
+          .eq("memberId", curentUser._id)
+          .eq("conversationId", args.conversationId),
+      )
+      .unique();
+
+    if (!membership) {
+      throw new ConvexError("You are not a member of this group");
+    }
+
+    // Delete conversation memberships
+    await ctx.db.delete(membership._id);
+  },
+});
