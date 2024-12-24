@@ -11,6 +11,7 @@ interface MessageProps {
   content: string[];
   createdAt: number;
   type: string;
+  seen?: React.ReactNode;
 }
 
 export default function Message({
@@ -21,6 +22,7 @@ export default function Message({
   content,
   createdAt,
   type,
+  seen,
 }: MessageProps) {
   const formatTime = (t: number) => format(t, "HH:mm");
 
@@ -58,6 +60,7 @@ export default function Message({
             {formatTime(createdAt)}
           </p>
         </div>
+        {seen}
       </div>
 
       {
