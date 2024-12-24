@@ -4,7 +4,7 @@ import { ConvexError } from "convex/values";
 import { api } from "#/convex/_generated/api";
 import type { Id } from "#/convex/_generated/dataModel";
 
-import { useMutaionState } from "@/hooks/useMutationState";
+import { useMutationState } from "@/hooks/useMutationState";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -27,7 +27,7 @@ export default function RemoveFriendDialog({
   open,
   setOpen,
 }: RemoveFriendDialogProps) {
-  const { mutate: removeFriend, pending: removePending } = useMutaionState(
+  const { mutate: removeFriend, pending: removePending } = useMutationState(
     api.friend.remove,
   );
 

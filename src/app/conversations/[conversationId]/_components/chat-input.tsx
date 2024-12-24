@@ -11,7 +11,7 @@ import { SendHorizontal } from "lucide-react";
 
 import { api } from "#/convex/_generated/api";
 import { useConversation } from "@/hooks/useConversation";
-import { useMutaionState } from "@/hooks/useMutationState";
+import { useMutationState } from "@/hooks/useMutationState";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import {
@@ -29,7 +29,7 @@ const chatMessageSchema = z.object({
 export default function ChatInput() {
   const textareaRef = useRef<HTMLTextAreaElement | null>(null);
   const conversationId = useConversation();
-  const { mutate: createMessage, pending: pendingCreate } = useMutaionState(
+  const { mutate: createMessage, pending: pendingCreate } = useMutationState(
     api.message.create,
   );
   const form = useForm<z.infer<typeof chatMessageSchema>>({

@@ -10,7 +10,7 @@ import { z } from "zod";
 import { CirclePlus, X } from "lucide-react";
 
 import { api } from "#/convex/_generated/api";
-import { useMutaionState } from "@/hooks/useMutationState";
+import { useMutationState } from "@/hooks/useMutationState";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
@@ -55,7 +55,7 @@ const createGroupFormSchema = z.object({
 export default function CreateGroupDialog() {
   const friends = useQuery(api.friends.get);
 
-  const { mutate: createGroup, pending: pendingCreate } = useMutaionState(
+  const { mutate: createGroup, pending: pendingCreate } = useMutationState(
     api.conversation.createGroup,
   );
 

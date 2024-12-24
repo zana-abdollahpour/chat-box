@@ -6,7 +6,7 @@ import { api } from "#/convex/_generated/api";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { useMutaionState } from "@/hooks/useMutationState";
+import { useMutationState } from "@/hooks/useMutationState";
 import { toast } from "sonner";
 import { ConvexError } from "convex/values";
 
@@ -23,10 +23,10 @@ export default function Request({
   username,
   email,
 }: RequestProps) {
-  const { mutate: denyRequest, pending: denyPending } = useMutaionState(
+  const { mutate: denyRequest, pending: denyPending } = useMutationState(
     api.request.deny,
   );
-  const { mutate: acceptRequest, pending: acceptPending } = useMutaionState(
+  const { mutate: acceptRequest, pending: acceptPending } = useMutationState(
     api.request.accept,
   );
 

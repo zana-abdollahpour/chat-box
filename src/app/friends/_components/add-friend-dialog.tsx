@@ -32,7 +32,7 @@ import {
 } from "@/components/ui/dialog";
 
 import { api } from "#/convex/_generated/api";
-import { useMutaionState } from "@/hooks/useMutationState";
+import { useMutationState } from "@/hooks/useMutationState";
 import { ConvexError } from "convex/values";
 
 const addFriendFormSchema = z.object({
@@ -43,7 +43,7 @@ const addFriendFormSchema = z.object({
 });
 
 export default function AddFriendDialog() {
-  const { mutate: createRequest, pending: pendingCreation } = useMutaionState(
+  const { mutate: createRequest, pending: pendingCreation } = useMutationState(
     api.request.create,
   );
 
