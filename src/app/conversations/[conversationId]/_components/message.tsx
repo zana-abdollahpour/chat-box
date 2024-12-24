@@ -45,7 +45,7 @@ export default function Message({
           })}
         >
           {type === "text" ? (
-            <p className="whitespace-pre-wrap text-wrap break-words">
+            <p className="whitespace-pre-wrap text-wrap break-words break-all">
               {content}
             </p>
           ) : null}
