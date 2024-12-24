@@ -7,6 +7,7 @@ import { useQuery } from "convex/react";
 import { api } from "#/convex/_generated/api";
 import ItemList from "@/components/shared/item-list";
 import DMConversationItem from "./_components/dm-conversation-item";
+import CreateGroupDialog from "./_components/create-group-dialog";
 
 export default function ConversationsLayout({
   children,
@@ -15,7 +16,7 @@ export default function ConversationsLayout({
 
   return (
     <>
-      <ItemList title="Conversations">
+      <ItemList title="Conversations" action={<CreateGroupDialog />}>
         {conversations ? (
           conversations.length === 0 ? (
             <p className="flex h-full w-full items-center justify-center">
