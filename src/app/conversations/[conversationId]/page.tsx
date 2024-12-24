@@ -13,6 +13,7 @@ import Body from "./_components/body";
 import ChatInput from "./_components/chat-input";
 
 import RemoveFriendDialog from "./_components/remove-friend-dialog";
+import DeleteGroupDialog from "./_components/delete-group-dialog";
 
 interface ConversationPageProps {
   params: {
@@ -46,8 +47,11 @@ export default function ConversationPage({
         open={removeFriendDialogOpen}
         setOpen={setRemoveFriendDialogOpen}
       />
-
-      {/* TODO: add group chat image */}
+      <DeleteGroupDialog
+        conversationId={conversationId}
+        open={deleteGroupDialogOpen}
+        setOpen={setDeleteGroupDialogOpen}
+      />
       <Header
         name={
           (conversation.isGroup
