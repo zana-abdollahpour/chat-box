@@ -8,6 +8,7 @@ import { api } from "#/convex/_generated/api";
 import ItemList from "@/components/shared/item-list";
 import DMConversationItem from "./_components/dm-conversation-item";
 import CreateGroupDialog from "./_components/create-group-dialog";
+import GroupConversationItem from "./_components/group-conversation-item";
 
 export default function ConversationsLayout({
   children,
@@ -24,7 +25,15 @@ export default function ConversationsLayout({
             </p>
           ) : (
             conversations.map(({ conversation, otherMember, lastMessage }) =>
-              conversation.isGroup ? null : (
+              conversation.isGroup ? (
+                <GroupConversationItem
+                  key={conversation._id}
+                  id={conversation._id}
+                  name={conversation.name || ""}
+                  lastMessageSender={lastMessage?.sender}
+                  lastMessageContent={lastMessage?.content}
+                />
+              ) : (
                 <DMConversationItem
                   key={conversation._id}
                   id={conversation._id}
