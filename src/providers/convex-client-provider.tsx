@@ -1,6 +1,6 @@
 "use client";
 
-import { ClerkProvider, SignInButton, useAuth } from "@clerk/nextjs";
+import { ClerkProvider, SignIn, useAuth } from "@clerk/nextjs";
 import { ConvexProviderWithClerk } from "convex/react-clerk";
 import {
   Authenticated,
@@ -10,7 +10,6 @@ import {
 } from "convex/react";
 
 import LoadingLogo from "@/components/shared/loading-logo";
-import { Button } from "@/components/ui/button";
 
 interface ConvexClientProviderProps {
   children: React.ReactNode;
@@ -29,9 +28,9 @@ function ConvexClientProvider({ children }: ConvexClientProviderProps) {
         <Authenticated>{children}</Authenticated>
 
         <Unauthenticated>
-          <Button asChild>
-            <SignInButton />
-          </Button>
+          <div className="mx-auto mt-12 w-fit text-center md:mt-24 lg:mt-32 xl:mt-48">
+            <SignIn />
+          </div>
         </Unauthenticated>
       </ConvexProviderWithClerk>
     </ClerkProvider>
