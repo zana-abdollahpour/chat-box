@@ -21,6 +21,7 @@ import {
   FormItem,
   FormMessage,
 } from "@/components/ui/form";
+import MessageActionsPopover from "./message-actions-popover";
 
 const chatMessageSchema = z.object({
   content: z.string().min(1, { message: "This field can't be empty" }),
@@ -73,6 +74,7 @@ export default function ChatInput() {
   return (
     <Card className="relative w-full rounded-lg p-2">
       <div className="flex w-full items-end gap-2">
+        <MessageActionsPopover />
         <Form {...form}>
           <form
             onSubmit={form.handleSubmit(handleSubmition)}
