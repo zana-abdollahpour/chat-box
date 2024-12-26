@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useQuery } from "convex/react";
+import { useRouter } from "next/router";
 import { Loader2 } from "lucide-react";
 
 import { api } from "#/convex/_generated/api";
@@ -16,22 +17,16 @@ import RemoveFriendDialog from "./_components/remove-friend-dialog";
 import DeleteGroupDialog from "./_components/delete-group-dialog";
 import LeaveGroupDialog from "./_components/leave-group-dialog";
 
-interface ConversationPageProps {
-  params: {
-    conversationId: Id<"conversations">;
-  };
-}
+// type CallType = "audio" | "video";
 
-type CallType = "audio" | "video";
-
-export default function ConversationPage({
-  params: { conversationId },
-}: ConversationPageProps) {
+export default function ConversationPage() {
+  const router = useRouter();
+  const conversationId = router.query.conversationId as Id<"conversations">;
   const conversation = useQuery(api.conversation.get, { id: conversationId });
   const [removeFriendDialogOpen, setRemoveFriendDialogOpen] = useState(false);
   const [deleteGroupDialogOpen, setDeleteGroupDialogOpen] = useState(false);
   const [leaveGroupDialogOpen, setLeaveGroupDialogOpen] = useState(false);
-  const [callType, setCallType] = useState<CallType | null>(null);
+  // const [callType, setCallType] = useState<CallType | null>(null);
 
   return conversation === undefined ? (
     <div className="flex h-full w-full items-center justify-center">
