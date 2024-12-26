@@ -4,12 +4,14 @@ import type { Id } from "#/convex/_generated/dataModel";
 
 import { Card } from "@/components/ui/card";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import { Badge } from "@/components/ui/badge";
 
 interface GroupConversationItemProps {
   id: Id<"conversations">;
   name: string;
   lastMessageSender?: string;
   lastMessageContent?: string;
+  unseenCount: number;
 }
 
 export default function GroupConversationItem({
@@ -17,10 +19,11 @@ export default function GroupConversationItem({
   name,
   lastMessageContent,
   lastMessageSender,
+  unseenCount,
 }: GroupConversationItemProps) {
   return (
     <Link href={`/conversations/${id}`} className="w-full">
-      <Card className="flex flex-row items-center gap-4 truncate p-2">
+      <Card className="flex flex-row items-center justify-between p-2">
         <div className="flex flex-row items-center gap-4 truncate">
           <Avatar>
             <AvatarFallback>
@@ -46,6 +49,7 @@ export default function GroupConversationItem({
             )}
           </div>
         </div>
+        {unseenCount ? <Badge>{unseenCount}</Badge> : null}
       </Card>
     </Link>
   );

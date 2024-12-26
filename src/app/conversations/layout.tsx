@@ -24,25 +24,28 @@ export default function ConversationsLayout({
               No conversations found
             </p>
           ) : (
-            conversations.map(({ conversation, otherMember, lastMessage }) =>
-              conversation.isGroup ? (
-                <GroupConversationItem
-                  key={conversation._id}
-                  id={conversation._id}
-                  name={conversation.name || ""}
-                  lastMessageSender={lastMessage?.sender}
-                  lastMessageContent={lastMessage?.content}
-                />
-              ) : (
-                <DMConversationItem
-                  key={conversation._id}
-                  id={conversation._id}
-                  username={otherMember?.username || ""}
-                  imageUrl={otherMember?.imageUrl || ""}
-                  lastMessageSender={lastMessage?.sender}
-                  lastMessageContent={lastMessage?.content}
-                />
-              ),
+            conversations.map(
+              ({ conversation, otherMember, lastMessage, unseenCount }) =>
+                conversation.isGroup ? (
+                  <GroupConversationItem
+                    key={conversation._id}
+                    id={conversation._id}
+                    name={conversation.name || ""}
+                    lastMessageSender={lastMessage?.sender}
+                    lastMessageContent={lastMessage?.content}
+                    unseenCount={unseenCount}
+                  />
+                ) : (
+                  <DMConversationItem
+                    key={conversation._id}
+                    id={conversation._id}
+                    username={otherMember?.username || ""}
+                    imageUrl={otherMember?.imageUrl || ""}
+                    lastMessageSender={lastMessage?.sender}
+                    unseenCount={unseenCount}
+                    lastMessageContent={lastMessage?.content}
+                  />
+                ),
             )
           )
         ) : (

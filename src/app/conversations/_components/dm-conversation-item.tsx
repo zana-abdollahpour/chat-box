@@ -5,6 +5,7 @@ import type { Id } from "#/convex/_generated/dataModel";
 
 import { Card } from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Badge } from "@/components/ui/badge";
 
 interface DMConversationItemProps {
   id: Id<"conversations">;
@@ -12,6 +13,7 @@ interface DMConversationItemProps {
   username: string;
   lastMessageSender?: string;
   lastMessageContent?: string;
+  unseenCount: number;
 }
 
 export default function DMConversationItem({
@@ -20,10 +22,11 @@ export default function DMConversationItem({
   username,
   lastMessageContent,
   lastMessageSender,
+  unseenCount,
 }: DMConversationItemProps) {
   return (
     <Link href={`/conversations/${id}`} className="w-full">
-      <Card className="flex flex-row items-center gap-4 truncate p-2">
+      <Card className="flex flex-row items-center justify-between p-2">
         <div className="flex flex-row items-center gap-4 truncate">
           <Avatar>
             <AvatarImage src={imageUrl} />
@@ -50,6 +53,7 @@ export default function DMConversationItem({
             )}
           </div>
         </div>
+        {unseenCount ? <Badge>{unseenCount}</Badge> : null}
       </Card>
     </Link>
   );
