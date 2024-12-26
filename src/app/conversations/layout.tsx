@@ -1,8 +1,8 @@
 "use client";
 
-import { Loader2 } from "lucide-react";
-
+import { useEffect } from "react";
 import { useQuery } from "convex/react";
+import { Loader2 } from "lucide-react";
 
 import { api } from "#/convex/_generated/api";
 import ItemList from "@/components/shared/item-list";
@@ -12,8 +12,12 @@ import GroupConversationItem from "./_components/group-conversation-item";
 
 export default function ConversationsLayout({
   children,
-}: React.PropsWithChildren) {
+}: Readonly<{ children: React.ReactNode }>) {
   const conversations = useQuery(api.conversations.get);
+
+  useEffect(() => {
+    document.title = "ChatBox - Conversations";
+  });
 
   return (
     <>
