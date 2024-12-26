@@ -30,6 +30,7 @@ const chatMessageSchema = z.object({
 });
 
 export default function ChatInput() {
+  const [cursorPosition, setCursorPosition] = useState(0);
   const textareaRef = useRef<HTMLTextAreaElement | null>(null);
   const emojiPickerRef = useRef<HTMLDivElement | null>(null);
   const [emojiPickerOpen, setEmojiPickerOpen] = useState(false);
@@ -42,6 +43,7 @@ export default function ChatInput() {
     resolver: zodResolver(chatMessageSchema),
     defaultValues: { content: "" },
   });
+  const content = form.watch("content", "");
 
   useEffect(() => {
     const handleClickOutside = (e: MouseEvent) => {
@@ -81,6 +83,18 @@ export default function ChatInput() {
     if (selectionStart === null) return;
 
     form.setValue("content", value);
+    setCursorPosition(selectionStart);
+  };
+
+  const insertEmoji = (emoji: string) => {
+    const text = [
+      content.substring(0, cursorPosition),
+      emoji,
+      content.substring(cursorPosition),
+    ].join("");
+
+    form.setValue("content", text);
+    setCursorPosition(cursorPosition + emoji.length);
   };
 
   const handleSend: React.KeyboardEventHandler<HTMLTextAreaElement> = async (
@@ -99,7 +113,8 @@ export default function ChatInput() {
           lazyLoadEmojis
           open={emojiPickerOpen}
           theme={theme as Theme}
-          onEmojiClick={() => {
+          onEmojiClick={({ emoji }) => {
+            insertEmoji(emoji);
             setEmojiPickerOpen(false);
           }}
         />
