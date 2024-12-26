@@ -1,6 +1,10 @@
+"use client";
+
+import { useState } from "react";
 import { PopoverClose } from "@radix-ui/react-popover";
 import { PlusCircle, Smile } from "lucide-react";
 
+import UploadFileDialog from "./upload-file-dialog";
 import { Button } from "@/components/ui/button";
 import {
   Popover,
@@ -15,9 +19,22 @@ interface MessageActionsPopoverProps {
 export default function MessageActionsPopover({
   setEmojiPickerOpen,
 }: MessageActionsPopoverProps) {
+  const [uploadFileDialogOpen, setUploadFileDialogOpen] = useState(false);
+  const [uploadImageDialogOpen, setUploadImageDialogOpen] = useState(false);
+
   return (
     <Popover>
       <PopoverContent className="mb-1 flex w-full flex-col gap-2">
+        <UploadFileDialog
+          type="file"
+          open={uploadFileDialogOpen}
+          toggle={(newState) => setUploadFileDialogOpen(newState)}
+        />
+        <UploadFileDialog
+          type="image"
+          open={uploadImageDialogOpen}
+          toggle={(newState) => setUploadImageDialogOpen(newState)}
+        />
         <PopoverClose>
           <Button
             variant="outline"
