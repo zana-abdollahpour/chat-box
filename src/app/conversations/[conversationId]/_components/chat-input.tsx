@@ -1,12 +1,14 @@
 "use client";
 
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { ConvexError } from "convex/values";
+import { useTheme } from "next-themes";
 import { toast } from "sonner";
 import { z } from "zod";
 import TextareaAutosize from "react-textarea-autosize";
+import EmojiPicker, { type Theme } from "emoji-picker-react";
 import { SendHorizontal } from "lucide-react";
 
 import { api } from "#/convex/_generated/api";
@@ -14,6 +16,7 @@ import { useConversation } from "@/hooks/useConversation";
 import { useMutationState } from "@/hooks/useMutationState";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
+import MessageActionsPopover from "./message-actions-popover";
 import {
   Form,
   FormControl,
@@ -21,7 +24,6 @@ import {
   FormItem,
   FormMessage,
 } from "@/components/ui/form";
-import MessageActionsPopover from "./message-actions-popover";
 
 const chatMessageSchema = z.object({
   content: z.string().min(1, { message: "This field can't be empty" }),
@@ -29,6 +31,9 @@ const chatMessageSchema = z.object({
 
 export default function ChatInput() {
   const textareaRef = useRef<HTMLTextAreaElement | null>(null);
+  const emojiPickerRef = useRef<HTMLDivElement | null>(null);
+  const [emojiPickerOpen, setEmojiPickerOpen] = useState(false);
+  const { theme } = useTheme();
   const conversationId = useConversation();
   const { mutate: createMessage, pending: pendingCreate } = useMutationState(
     api.message.create,
@@ -38,6 +43,21 @@ export default function ChatInput() {
     defaultValues: { content: "" },
   });
 
+  useEffect(() => {
+    const handleClickOutside = (e: MouseEvent) => {
+      if (
+        emojiPickerRef.current &&
+        !emojiPickerRef.current.contains(e.target as Node)
+      ) {
+        setEmojiPickerOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+
+    return document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
   const handleSubmition = async (values: z.infer<typeof chatMessageSchema>) => {
     createMessage({
       conversationId,
@@ -46,6 +66,7 @@ export default function ChatInput() {
     })
       .then(() => {
         form.reset();
+        textareaRef.current?.focus();
       })
       .catch((err) =>
         toast.error(
@@ -73,8 +94,18 @@ export default function ChatInput() {
 
   return (
     <Card className="relative w-full rounded-lg p-2">
+      <div className="absolute bottom-16" ref={emojiPickerRef}>
+        <EmojiPicker
+          lazyLoadEmojis
+          open={emojiPickerOpen}
+          theme={theme as Theme}
+          onEmojiClick={() => {
+            setEmojiPickerOpen(false);
+          }}
+        />
+      </div>
       <div className="flex w-full items-end gap-2">
-        <MessageActionsPopover />
+        <MessageActionsPopover setEmojiPickerOpen={setEmojiPickerOpen} />
         <Form {...form}>
           <form
             onSubmit={form.handleSubmit(handleSubmition)}

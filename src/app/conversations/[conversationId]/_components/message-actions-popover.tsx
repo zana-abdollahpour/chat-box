@@ -8,12 +8,22 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 
-export default function MessageActionsPopover() {
+interface MessageActionsPopoverProps {
+  setEmojiPickerOpen: (value: React.SetStateAction<boolean>) => void;
+}
+
+export default function MessageActionsPopover({
+  setEmojiPickerOpen,
+}: MessageActionsPopoverProps) {
   return (
     <Popover>
       <PopoverContent className="mb-1 flex w-full flex-col gap-2">
         <PopoverClose>
-          <Button variant="outline" onClick={() => {}} size="icon">
+          <Button
+            variant="outline"
+            onClick={() => setEmojiPickerOpen(true)}
+            size="icon"
+          >
             <Smile />
           </Button>
         </PopoverClose>
