@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 
@@ -18,9 +18,18 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+export const viewport: Viewport = { themeColor: "DodgerBlue" };
+
 export const metadata: Metadata = {
   title: "ChatBox",
   description: "Realtime chat application powered by NextJS",
+  generator: "Next.js",
+  manifest: "/manifest.json",
+  authors: [{ name: "Zana Abdollahpour" }],
+  icons: [
+    { rel: "apple-touch-icon", url: "icon-192x192.png" },
+    { rel: "icon", url: "icon-192x192.png" },
+  ],
 };
 
 export default function RootLayout({
