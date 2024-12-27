@@ -9,13 +9,13 @@ import { api } from "#/convex/_generated/api";
 import type { Id } from "#/convex/_generated/dataModel";
 
 import ConversationContainer from "@/components/shared/conversation/conversation-container";
-import Header from "./_components/header";
-import Body from "./_components/body";
-import ChatInput from "./_components/chat-input";
 
-import RemoveFriendDialog from "./_components/remove-friend-dialog";
-import DeleteGroupDialog from "./_components/delete-group-dialog";
-import LeaveGroupDialog from "./_components/leave-group-dialog";
+import Header from "@/features/conversation/header";
+import Body from "@/features/conversation/body";
+import ChatInput from "@/features/conversation/inputs/chat-input";
+import RemoveFriendDialog from "@/features/conversation/dialogs/remove-friend-dialog";
+import DeleteGroupDialog from "@/features/conversation/dialogs/delete-group-dialog";
+import LeaveGroupDialog from "@/features/conversation/dialogs/leave-group-dialog";
 
 // type CallType = "audio" | "video";
 

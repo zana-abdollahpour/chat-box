@@ -4,7 +4,7 @@ import { useState } from "react";
 import { PopoverClose } from "@radix-ui/react-popover";
 import { PlusCircle, Smile } from "lucide-react";
 
-import UploadFileDialog from "./upload-file-dialog";
+import UploadFileDialog from "../dialogs/upload-file-dialog";
 import { Button } from "@/components/ui/button";
 import {
   Popover,
