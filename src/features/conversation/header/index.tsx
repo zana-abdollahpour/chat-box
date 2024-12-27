@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { CircleArrowLeft, Settings } from "lucide-react";
+import { CircleArrowLeft, Phone, Settings, Video } from "lucide-react";
 
 import { cn } from "@/lib/utils";
 import { Card } from "@/components/ui/card";
@@ -12,6 +12,8 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
+export type CallType = "audio" | "video";
+
 interface HeaderProps {
   imageUrl?: string;
   name: string;
@@ -20,9 +22,15 @@ interface HeaderProps {
     destructive: boolean;
     onClick: () => void;
   }[];
+  setCallType: React.Dispatch<React.SetStateAction<CallType | null>>;
 }
 
-export default function Header({ name, imageUrl, options }: HeaderProps) {
+export default function Header({
+  name,
+  imageUrl,
+  options,
+  setCallType,
+}: HeaderProps) {
   return (
     <Card className="flex w-full items-center justify-between rounded-lg p-2">
       <div className="flex items-center gap-2">
@@ -35,8 +43,22 @@ export default function Header({ name, imageUrl, options }: HeaderProps) {
         </Avatar>
         <h2 className="font-semibold">{name}</h2>
       </div>
-      {options && (
-        <div className="flex gap-2">
+      <div className="flex gap-2">
+        <Button
+          variant="secondary"
+          size="icon"
+          onClick={() => setCallType("audio")}
+        >
+          <Phone />
+        </Button>
+        <Button
+          variant="secondary"
+          size="icon"
+          onClick={() => setCallType("video")}
+        >
+          <Video />
+        </Button>
+        {options && (
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button size="icon" variant="secondary">
@@ -57,8 +79,8 @@ export default function Header({ name, imageUrl, options }: HeaderProps) {
               ))}
             </DropdownMenuContent>
           </DropdownMenu>
-        </div>
-      )}
+        )}
+      </div>
     </Card>
   );
 }

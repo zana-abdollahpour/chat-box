@@ -10,12 +10,15 @@ import { useMutationState } from "@/hooks/useMutationState";
 import { useConversation } from "@/hooks/useConversation";
 
 import Message from "./message";
+import CallRoom from "./call-room";
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
+
+import type { CallType } from "@/features/conversation/header";
 
 const formatSeenBy = (names: string[]) => {
   switch (names.length) {
@@ -60,9 +63,11 @@ interface BodyProps {
     username?: string;
     [key: string]: unknown;
   }[];
+  callType: CallType | null;
+  setCallType: React.Dispatch<React.SetStateAction<CallType | null>>;
 }
 
-export default function Body({ members }: BodyProps) {
+export default function Body({ members, callType, setCallType }: BodyProps) {
   const { conversationId } = useConversation();
 
   const messages = useQuery(api.messages.get, {
@@ -87,29 +92,38 @@ export default function Body({ members }: BodyProps) {
 
   return (
     <div className="no-scrollbar flex w-full flex-1 flex-col-reverse gap-2 overflow-y-scroll p-3">
-      {messages?.map(
-        ({ isCurrentUser, message, senderImage, senderName }, i) => {
-          const lastByUser =
-            messages[i - 1]?.message.senderId === messages[i].message.senderId;
+      {!callType ? (
+        messages?.map(
+          ({ isCurrentUser, message, senderImage, senderName }, i) => {
+            const lastByUser =
+              messages[i - 1]?.message.senderId ===
+              messages[i].message.senderId;
 
-          const seenMessage = isCurrentUser
-            ? getSeenMessage(message._id)
-            : undefined;
+            const seenMessage = isCurrentUser
+              ? getSeenMessage(message._id)
+              : undefined;
 
-          return (
-            <Message
-              key={message._id}
-              fromCurrentUser={isCurrentUser}
-              senderImage={senderImage}
-              senderName={senderName}
-              lastByUser={lastByUser}
-              content={message.content}
-              createdAt={message._creationTime}
-              type={message.type}
-              seen={seenMessage}
-            />
-          );
-        },
+            return (
+              <Message
+                key={message._id}
+                fromCurrentUser={isCurrentUser}
+                senderImage={senderImage}
+                senderName={senderName}
+                lastByUser={lastByUser}
+                content={message.content}
+                createdAt={message._creationTime}
+                type={message.type}
+                seen={seenMessage}
+              />
+            );
+          },
+        )
+      ) : (
+        <CallRoom
+          audio={callType === "audio" || callType === "video"}
+          video={callType === "video"}
+          handleDisconnect={() => setCallType(null)}
+        />
       )}
     </div>
   );

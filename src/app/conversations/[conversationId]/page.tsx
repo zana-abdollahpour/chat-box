@@ -10,14 +10,12 @@ import type { Id } from "#/convex/_generated/dataModel";
 
 import ConversationContainer from "@/components/shared/conversation/conversation-container";
 
-import Header from "@/features/conversation/header";
+import Header, { type CallType } from "@/features/conversation/header";
 import Body from "@/features/conversation/body";
 import ChatInput from "@/features/conversation/inputs/chat-input";
 import RemoveFriendDialog from "@/features/conversation/dialogs/remove-friend-dialog";
 import DeleteGroupDialog from "@/features/conversation/dialogs/delete-group-dialog";
 import LeaveGroupDialog from "@/features/conversation/dialogs/leave-group-dialog";
-
-// type CallType = "audio" | "video";
 
 export default function ConversationPage() {
   const router = useRouter();
@@ -26,7 +24,7 @@ export default function ConversationPage() {
   const [removeFriendDialogOpen, setRemoveFriendDialogOpen] = useState(false);
   const [deleteGroupDialogOpen, setDeleteGroupDialogOpen] = useState(false);
   const [leaveGroupDialogOpen, setLeaveGroupDialogOpen] = useState(false);
-  // const [callType, setCallType] = useState<CallType | null>(null);
+  const [callType, setCallType] = useState<CallType | null>(null);
 
   return conversation === undefined ? (
     <div className="flex h-full w-full items-center justify-center">
@@ -84,6 +82,7 @@ export default function ConversationPage() {
                 },
               ]
         }
+        setCallType={setCallType}
       />
       <Body
         members={
@@ -95,6 +94,8 @@ export default function ConversationPage() {
               ? [conversation.otherMember]
               : []
         }
+        callType={callType}
+        setCallType={setCallType}
       />
       <ChatInput />
     </ConversationContainer>
