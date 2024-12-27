@@ -6,9 +6,9 @@ import { Loader2 } from "lucide-react";
 
 import { api } from "#/convex/_generated/api";
 import ItemList from "@/components/shared/item-list";
-import DMConversationItem from "./_components/dm-conversation-item";
-import CreateGroupDialog from "./_components/create-group-dialog";
-import GroupConversationItem from "./_components/group-conversation-item";
+import DMConversationItem from "@/features/conversations/dm-conversation-item";
+import CreateGroupDialog from "@/features/conversations/create-group-dialog";
+import GroupConversationItem from "@/features/conversations/group-conversation-item";
 
 export default function ConversationsLayout({
   children,
