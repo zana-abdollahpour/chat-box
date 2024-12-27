@@ -5,8 +5,8 @@ import { Loader2 } from "lucide-react";
 
 import ConversationFallback from "@/components/shared/conversation/conversation-fallback";
 import ItemList from "@/components/shared/item-list";
-import AddFriendDialog from "./_components/add-friend-dialog";
-import Request from "./_components/request";
+import AddFriendDialog from "@/features/friends/add-friend-dialog";
+import Request from "@/features/friends/request";
 
 import { api } from "#/convex/_generated/api";
 
