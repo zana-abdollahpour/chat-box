@@ -2,6 +2,7 @@ import { format } from "date-fns";
 
 import { cn } from "@/lib/utils";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import ImagePreview from "./image-preview";
 
 interface MessageProps {
   fromCurrentUser: boolean;
@@ -51,6 +52,7 @@ export default function Message({
               {content}
             </p>
           ) : null}
+          {type === "image" ? <ImagePreview urls={content} /> : null}
           <p
             className={cn("my-1 flex w-full text-xs", {
               "justify-end text-primary-foreground": fromCurrentUser,
