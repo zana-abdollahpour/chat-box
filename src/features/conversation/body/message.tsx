@@ -2,6 +2,7 @@ import { format } from "date-fns";
 
 import { cn } from "@/lib/utils";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Badge } from "@/components/ui/badge";
 import ImagePreview from "./image-preview";
 import FilePreview from "./file-preview";
 
@@ -12,7 +13,7 @@ interface MessageProps {
   lastByUser: boolean;
   content: string[];
   createdAt: number;
-  type: string;
+  type: "text" | "image" | "file" | "call";
   seen?: React.ReactNode;
 }
 
@@ -48,13 +49,14 @@ export default function Message({
             "rounded-bl-none": !lastByUser && !fromCurrentUser,
           })}
         >
-          {type === "text" ? (
+          {type === "text" && (
             <p className="whitespace-pre-wrap text-wrap break-words break-all">
               {content}
             </p>
-          ) : null}
-          {type === "image" ? <ImagePreview urls={content} /> : null}
-          {type === "file" ? <FilePreview url={content[0]} /> : null}
+          )}
+          {type === "image" && <ImagePreview urls={content} />}
+          {type === "file" && <FilePreview url={content[0]} />}
+          {type === "call" && <Badge variant="secondary">Joined Call</Badge>}
           <p
             className={cn("my-1 flex w-full text-xs", {
               "justify-end text-primary-foreground": fromCurrentUser,
