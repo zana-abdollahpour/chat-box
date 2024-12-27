@@ -19,6 +19,7 @@ import {
 } from "@/components/ui/tooltip";
 
 import type { CallType } from "@/features/conversation/header";
+import type { MessageType } from "@/features/conversation/body/message";
 
 const formatSeenBy = (names: string[]) => {
   switch (names.length) {
@@ -112,7 +113,7 @@ export default function Body({ members, callType, setCallType }: BodyProps) {
                 lastByUser={lastByUser}
                 content={message.content}
                 createdAt={message._creationTime}
-                type={message.type}
+                type={message.type as MessageType}
                 seen={seenMessage}
               />
             );

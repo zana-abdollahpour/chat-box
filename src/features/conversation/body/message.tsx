@@ -6,6 +6,7 @@ import { Badge } from "@/components/ui/badge";
 import ImagePreview from "./image-preview";
 import FilePreview from "./file-preview";
 
+export type MessageType = "text" | "image" | "file" | "call";
 interface MessageProps {
   fromCurrentUser: boolean;
   senderImage: string;
@@ -13,7 +14,7 @@ interface MessageProps {
   lastByUser: boolean;
   content: string[];
   createdAt: number;
-  type: "text" | "image" | "file" | "call";
+  type: MessageType;
   seen?: React.ReactNode;
 }
 
